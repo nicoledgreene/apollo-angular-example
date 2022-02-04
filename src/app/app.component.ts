@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-graphql';
+
+  constructor(apollo: Apollo) {
+    apollo.query({
+      query: gql`{
+        shows {
+          title
+          network
+          genre
+        }
+      }`
+    }).subscribe((data) => {
+      console.log(data);
+    })
+  }
 }
